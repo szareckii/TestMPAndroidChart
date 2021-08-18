@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TestMPAndroidChart</string>
+    <string name="dash">-</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="celsius">%s\u2103</string>
+    <string name="humidity">%s \u0025\u0025</string>
+    <string name="place">place</string>
+    <string name="status">status</string>
+
+</resources>

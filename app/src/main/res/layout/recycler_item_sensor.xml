@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="sensorData"
+            type="com.example.testmpandroidchart.source.SensorData" />
+
+        <import type="com.example.testmpandroidchart.source.StatusSensorEnum"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="8dp"
+            android:elevation="1dp"
+            app:cardCornerRadius="5dp"
+            app:strokeWidth="1dp" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/typeSensorImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_water_blue"
+                    android:contentDescription="TODO"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/labelPlaceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/place"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/labelSensorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Датчик протечки"
+                    android:layout_marginTop="0dp"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/typeSensorImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/typeSensorImageView" />
+
+
+                <TextView
+                    android:id="@+id/statusSensorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="58dp"
+                    android:text="@string/status"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/labelSensorTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/typeSensorImageView"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <com.example.testmpandroidchart.customview.BatteryView
+                    android:id="@+id/battery"
+                    android:layout_width="35dp"
+                    android:layout_height="14dp"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</layout>
