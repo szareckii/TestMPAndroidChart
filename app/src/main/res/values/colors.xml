@@ -17,4 +17,6 @@
     <color name="orange">#F2994A</color>
     <color name="green_boiler">#C9FFD2</color>
     <color name="light_gray">#A19F9F</color>
+    <color name="transparent">#00000000</color>
+
 </resources>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColor
 import androidx.core.util.Pair
@@ -42,14 +43,34 @@ class ChartFragment : Fragment() {
 
         init()
         setLineChartData(10, 30)
+
+        checkBoxTemp.setOnCheckedChangeListener { buttonView, isChecked ->
+            val sets: List<ILineDataSet> = lineChart.data.dataSets
+            val set = sets[0] as LineDataSet
+            if (isChecked) {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.orange) }!!
+            } else {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
+            }
+            lineChart.invalidate()
+        }
+
+        checkBoxHumidity.setOnCheckedChangeListener { buttonView, isChecked ->
+            val sets: List<ILineDataSet> = lineChart.data.dataSets
+            val set = sets[1] as LineDataSet
+            if (isChecked) {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.blue) }!!
+            } else {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
+            }
+            lineChart.invalidate()
+        }
     }
 
     private fun init() {
-
         initDate()
-
     }
-
+ 
     private fun initDate() {
         val locale = Locale("ru", "RU")
 
@@ -60,12 +81,12 @@ class ChartFragment : Fragment() {
         val todayDate = Calendar.getInstance().time
         val currentDate = sdfToday.format(todayDate)
 
-
         val currentWeekDate = Calendar.getInstance()
         currentWeekDate.set(Calendar.DAY_OF_WEEK, currentWeekDate.firstDayOfWeek)
         val startWeek = sdfWeek.format(currentWeekDate.time)
         currentWeekDate.set(Calendar.DAY_OF_WEEK, currentWeekDate.firstDayOfWeek + 6)
         val endWeek = sdfWeek.format(currentWeekDate.time)
+
         val month = sdfMonth.format(currentWeekDate.time)
 
         todayTextView.text = currentDate
@@ -89,9 +110,8 @@ class ChartFragment : Fragment() {
             cardMonth.strokeColor = -1
 
             dateTextView.text = currentDate
-
+            resetChart()
             setData((24).toInt(), 30)
-            lineChart.invalidate()
         }
 
         cardWeek.setOnClickListener {
@@ -100,9 +120,8 @@ class ChartFragment : Fragment() {
             cardMonth.strokeColor = -1
 
             dateTextView.text = ("$startWeek - $endWeek $month")
-
+            resetChart()
             setData((7).toInt(), 30)
-            lineChart.invalidate()
         }
 
         cardMonth.setOnClickListener {
@@ -111,20 +130,20 @@ class ChartFragment : Fragment() {
             cardWeek.strokeColor = -1
 
             dateTextView.text = month
+            resetChart()
             setData((30).toInt(), 30)
-            lineChart.invalidate()
         }
     }
 
-    private fun setLineChartData(count: Int,  range: Int) {
+    private fun setLineChartData(count: Int, range: Int) {
 
         lineChart.description.isEnabled = false
         lineChart.setTouchEnabled(false)
         lineChart.isDragEnabled = false
         lineChart.setScaleEnabled(false)
 
-        val leftAxisValues= ArrayList<String>( )
-        for (i in 1..60 ) {
+        val leftAxisValues = ArrayList<String>()
+        for (i in 1..60) {
             leftAxisValues.add("$i\u00B0")
         }
 
@@ -141,8 +160,8 @@ class ChartFragment : Fragment() {
         leftAxis.textColor = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.orange) }!!
         leftAxis.setDrawGridLines(true)
 
-        val rightAxisValues= ArrayList<String>( )
-        for (i in 1..100 ) {
+        val rightAxisValues = ArrayList<String>()
+        for (i in 1..100) {
             rightAxisValues.add("$i\u0025")
         }
 
@@ -156,7 +175,7 @@ class ChartFragment : Fragment() {
         rightAxis.isGranularityEnabled = false
         rightAxis.valueFormatter = IndexAxisValueFormatter(rightAxisValues)
 
-        val xAxisValues= ArrayList(
+        val xAxisValues = ArrayList(
             listOf(
                 "12ч",
                 "13ч",
@@ -252,6 +271,8 @@ class ChartFragment : Fragment() {
             set1 = LineDataSet(valuesTemp, "Температура")
             set1.axisDependency = YAxis.AxisDependency.LEFT
             set1.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.orange) }!!
+            if (!checkBoxTemp.isChecked)
+                set1.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
             set1.setDrawCircles(false)
             set1.mode = LineDataSet.Mode.CUBIC_BEZIER
             set1.setDrawValues(false)
@@ -260,6 +281,8 @@ class ChartFragment : Fragment() {
             set2 = LineDataSet(valuesHumidity, "Влажность")
             set2.axisDependency = YAxis.AxisDependency.RIGHT
             set2.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.blue) }!!
+            if (!checkBoxHumidity.isChecked)
+                set2.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
             set2.setDrawCircles(false)
             set2.mode = LineDataSet.Mode.CUBIC_BEZIER
             set2.setDrawValues(false)
