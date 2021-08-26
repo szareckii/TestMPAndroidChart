@@ -1,14 +1,11 @@
 package com.example.testmpandroidchart.fragment
 
 import android.os.Bundle
-import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColor
 import androidx.core.util.Pair
 import androidx.navigation.findNavController
 import com.example.testmpandroidchart.R
@@ -23,7 +20,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import kotlinx.android.synthetic.main.recycler_item_sensor.view.*
 import java.text.SimpleDateFormat
 
 class ChartFragment : Fragment() {
@@ -44,22 +40,29 @@ class ChartFragment : Fragment() {
         init()
         setLineChartData(10, 30)
 
-        checkBoxTemp.setOnCheckedChangeListener { buttonView, isChecked ->
-            val sets: List<ILineDataSet> = lineChart.data.dataSets
-            val set = sets[0] as LineDataSet
-            if (isChecked) {
-                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.orange) }!!
-            } else {
-                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
-            }
-            lineChart.invalidate()
-        }
+        checkBoxTempListener()
+        checkBoxHumidityListener()
+    }
 
+    private fun checkBoxHumidityListener() {
         checkBoxHumidity.setOnCheckedChangeListener { buttonView, isChecked ->
             val sets: List<ILineDataSet> = lineChart.data.dataSets
             val set = sets[1] as LineDataSet
             if (isChecked) {
                 set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.blue) }!!
+            } else {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
+            }
+            lineChart.invalidate()
+        }
+    }
+
+    private fun checkBoxTempListener() {
+        checkBoxTemp.setOnCheckedChangeListener { buttonView, isChecked ->
+            val sets: List<ILineDataSet> = lineChart.data.dataSets
+            val set = sets[0] as LineDataSet
+            if (isChecked) {
+                set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.orange) }!!
             } else {
                 set.color = activity?.let { ContextCompat.getColor(it.applicationContext, R.color.transparent) }!!
             }
@@ -115,8 +118,8 @@ class ChartFragment : Fragment() {
         }
 
         cardWeek.setOnClickListener {
-            cardWeek.strokeColor = context?.getColor(R.color.light_blue_stroke)!!
             cardToday.strokeColor = -1
+            cardWeek.strokeColor = context?.getColor(R.color.light_blue_stroke)!!
             cardMonth.strokeColor = -1
 
             dateTextView.text = ("$startWeek - $endWeek $month")
@@ -125,9 +128,9 @@ class ChartFragment : Fragment() {
         }
 
         cardMonth.setOnClickListener {
-            cardMonth.strokeColor = context?.getColor(R.color.light_blue_stroke)!!
             cardToday.strokeColor = -1
             cardWeek.strokeColor = -1
+            cardMonth.strokeColor = context?.getColor(R.color.light_blue_stroke)!!
 
             dateTextView.text = month
             resetChart()
@@ -310,20 +313,32 @@ class ChartFragment : Fragment() {
     }
 
     private fun datePickerListener(it: Pair<Long, Long>) {
-        val st = it.first
-        val fin = it.second
+        val start = it.first
+        val finish = it.second
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val calendarFin = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
-        calendar.timeInMillis = st
-        calendarFin.timeInMillis = fin
+        calendar.timeInMillis = start
+        calendarFin.timeInMillis = finish
 
-        val diff = fin - st
+        val diff = finish - start
 
         val seconds = diff / 1000
         val minutes = diff / (60 * 1000)
         val hours = minutes / 60
         val diffDays = diff / (24 * 60 * 60 * 1000)
+
+        cardToday.strokeColor = -1
+        cardWeek.strokeColor = -1
+        cardMonth.strokeColor = -1
+
+        val formatter = SimpleDateFormat("dd.MM.yyyy", Locale("ru"))
+
+//        val date = "${calendar.get(Calendar.DAY_OF_MONTH)} :${calendar.get(Calendar.MONTH)} :${calendar.get(Calendar.YEAR)}"
+        val dateStart = formatter.format(start)
+        val dateFinish = formatter.format(finish)
+        val range = "$dateStart - $dateFinish"
+        dateTextView.text = range
 
         resetChart()
         setLineChartData((diffDays + 1).toInt(), 30)
@@ -338,3 +353,4 @@ class ChartFragment : Fragment() {
         lineChart.invalidate()
     }
 }
+

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testmpandroidchart.R
 import com.example.testmpandroidchart.fragment.adapter.SensorAdapter
 import com.example.testmpandroidchart.source.DataModel
-import com.example.testmpandroidchart.source.SensorData
+import com.example.testmpandroidchart.source.Data
 import kotlinx.android.synthetic.main.fragment_start.*
 
 class StartFragment : Fragment() {
@@ -21,7 +21,7 @@ class StartFragment : Fragment() {
 
     private val onListItemClickListener: SensorAdapter.OnListItemClickListener =
         object : SensorAdapter.OnListItemClickListener {
-            override fun onItemClick(listItemData: SensorData) {
+            override fun onItemClick(listItemData: Data) {
 //                toast(listItemData.temp)
                 view?.findNavController()?.navigate(R.id.action_startFragment_to_chartFragment)
 //                val editMarkDialog = EditMarkDialogFragment()

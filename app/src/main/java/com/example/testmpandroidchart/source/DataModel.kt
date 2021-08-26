@@ -2,12 +2,12 @@ package com.example.testmpandroidchart.source
 
 class DataModel {
     val data = listOf(
-        SensorData(TypeSensorEnum.TEMP,"Гостиная", "25","85",4),
-        SensorData(TypeSensorEnum.WATER,"Кухня", "23","64",5, StatusSensorEnum.ALERT),
-        SensorData(TypeSensorEnum.WATER,"Спальня", "27","74",3, StatusSensorEnum.ENABLED),
-        SensorData(TypeSensorEnum.TEMP,"Детская", "15","80",2),
-        SensorData(TypeSensorEnum.TEMP,"Оранжерея", "28","71",4),
-        SensorData(TypeSensorEnum.WATER,"Кабинет", "20","79",1, StatusSensorEnum.DISABLE)
+        Data(TypeSensorEnum.TEMP,"Гостиная", "25","85",4),
+        Data(TypeSensorEnum.WATER,"Кухня", "23","64",5, StatusSensorEnum.ALERT),
+        Data(TypeSensorEnum.WATER,"Спальня", "27","74",3, StatusSensorEnum.ENABLED),
+        Data(TypeSensorEnum.TEMP,"Детская", "15","80",2),
+        Data(TypeSensorEnum.TEMP,"Кабинет", "28","71",4),
+        Data(TypeSensorEnum.BOILER,"Кладовая", "16","59",status = StatusSensorEnum.ENABLED)
     )
 }
 

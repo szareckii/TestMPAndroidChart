@@ -1,6 +1,6 @@
 package com.example.testmpandroidchart.source
 
-data class SensorData(
+data class Data(
     val type: TypeSensorEnum = TypeSensorEnum.TEMP,
     val labelPlace: String = "Гостиная",
     val temp: String = "25",

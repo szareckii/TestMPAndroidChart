@@ -35,7 +35,7 @@
                     android:adjustViewBounds="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_water_blue"
+                    android:src="@drawable/ic_boiler_blue"
                     android:contentDescription="TODO"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -55,12 +55,11 @@
                     android:id="@+id/labelSensorTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Датчик протечки"
+                    android:text="Реле"
                     android:layout_marginTop="0dp"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/typeSensorImageView"
                     app:layout_constraintTop_toBottomOf="@+id/typeSensorImageView" />
-
 
                 <TextView
                     android:id="@+id/statusSensorTextView"
@@ -75,16 +74,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/typeSensorImageView"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <com.example.testmpandroidchart.customview.BatteryView
-                    android:id="@+id/battery"
-                    android:layout_width="35dp"
-                    android:layout_height="14dp"
-                    android:layout_margin="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </com.google.android.material.card.MaterialCardView>
 
